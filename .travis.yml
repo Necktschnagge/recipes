@@ -12,9 +12,6 @@ dist: bionic
 # - fc-cache -f -v
      
 install:
-  - sudo add-apt-repository ppa:texlive-backports/ppa
-  - sudo apt-get update
-  - sudo apt-get install texlive-lang-german
   - source ./texlive/texlive_install.sh
 
 cache:
