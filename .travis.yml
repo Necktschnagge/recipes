@@ -1,5 +1,5 @@
 language: generic
-require
+
 dist: bionic
 
 ## Uncomment the following lines if you require extra dependencies
