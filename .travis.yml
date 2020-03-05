@@ -13,8 +13,9 @@ dist: bionic
 addons:
   apt:
     packages:
-      - texlive
+      - texlive-full
       - texlive-lang-german
+      - texlive-lang-european
 
 install:
   - source ./texlive/texlive_install.sh
