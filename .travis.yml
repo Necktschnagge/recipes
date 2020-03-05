@@ -13,6 +13,7 @@ dist: bionic
 addons:
   apt:
     packages:
+      - babel-german
       - texlive-lang-german
 
 install:
