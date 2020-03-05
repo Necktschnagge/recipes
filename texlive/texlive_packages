@@ -16,4 +16,4 @@ luaotfload
 minted fvextra upquote lineno xstring framed caption
 
 # babel-ngerman
-ngerman
+ngerman babel-german
