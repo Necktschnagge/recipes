@@ -13,7 +13,12 @@ dist: bionic
 
 install:
   - source ./texlive/texlive_install.sh
-  - sudo apt-get texlive-lang-german
+  
+addons:
+  apt:
+    packages:
+      - texlive-lang-german
+		
 
 cache:
   directories:
