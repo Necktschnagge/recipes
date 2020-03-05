@@ -10,13 +10,7 @@ dist: bionic
 # - mkdir $HOME/.fonts
 # - cp -a $TRAVIS_BUILD_DIR/src/fonts/. $HOME/.fonts/
 # - fc-cache -f -v
-addons:
-  apt:
-    packages:
-      - texlive-full
-      - texlive-lang-german
-      - texlive-lang-european
-
+     
 install:
   - sudo add-apt-repository ppa:texlive-backports/ppa
   - sudo apt-get update
