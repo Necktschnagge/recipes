@@ -31,6 +31,7 @@ script:
   - cat custom_log.log | grep -E 'at\s*line(s|)\s*[0-9]+' > custom_errors.log || true
   - $TRAVIS_BUILD_DIR/script/check_empty.sh
   - cat custom_errors.log
+  - ls
   - mv book.pdf $TRAVIS_BUILD_DIR/build/
 
 
