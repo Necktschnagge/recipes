@@ -31,6 +31,7 @@ script:
   - cat custom_log.log | grep -E 'at\s*line(s|)\s*[0-9]+' > custom_errors.log || true
   - $TRAVIS_BUILD_DIR/script/check_empty.sh
   - cat custom_errors.log
+  - mv book.pdf $TRAVIS_BUILD_DIR/build/
 
 
   # But you could use any other compiler as well instead of latexmk. Example:
@@ -46,3 +47,13 @@ script:
 #after_script:
 #  - export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
 #  - tlmgr list --only-installed | grep -oP 'i \K.+?(?=:)'
+
+deploy:
+    provider: pages
+    skip_cleanup: true
+    token: $GH_REPO_TOKEN
+    keep_history: true
+    local_dir: build
+    target_branch: gh-pages
+    on :
+        branch: test
