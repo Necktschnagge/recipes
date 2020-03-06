@@ -21,7 +21,6 @@ cache:
 
 # Change working directory so including files will work
 before_script:
-  - mkdir $TRAVIS_BUILD_DIR/build
   - cd $TRAVIS_BUILD_DIR/src/
 script:
   # Texliveonfly will download packages automatically
