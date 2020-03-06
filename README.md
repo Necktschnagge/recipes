@@ -2,4 +2,6 @@
 
 Find current version here:
 
-https://necktschnagge.github.io/recipes/book.pdf
+* Direct Download: https://necktschnagge.github.io/recipes/book.pdf
+
+* https://github.com/Necktschnagge/recipes/blob/gh-pages/book.pdf
