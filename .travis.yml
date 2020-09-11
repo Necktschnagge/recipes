@@ -36,6 +36,8 @@ script:
   - mv book.pdf "$(git rev-parse HEAD).pdf"
   - git status
   - ls -la
+  - cd $TRAVIS_BUILD_DIR/
+  - ls -la
 
   # But you could use any other compiler as well instead of latexmk. Example:
 #  - pdflatex main.tex
