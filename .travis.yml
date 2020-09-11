@@ -32,8 +32,10 @@ script:
   - cat custom_log.log | grep -E 'at\s*line(s|)\s*[0-9]+' > custom_errors.log || true
   - $TRAVIS_BUILD_DIR/script/check_empty.sh
   - cat custom_errors.log
-  - mv book.pdf $TRAVIS_BUILD_DIR/build/
-
+  - cp book.pdf $TRAVIS_BUILD_DIR/build/
+  - mv book.pdf "$(git rev-parse HEAD).pdf"
+  - git status
+  - ls -la
 
   # But you could use any other compiler as well instead of latexmk. Example:
 #  - pdflatex main.tex
