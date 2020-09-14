@@ -33,6 +33,7 @@ script:
   - $TRAVIS_BUILD_DIR/script/check_emptiness_of_custom_errors_log.sh # fails on any warning in latex.
   - cat custom_errors.log
   - cp book.pdf $TRAVIS_BUILD_DIR/build/
+  - curl -H "Authorization: token ${GITHUB_TOKEN}" -X POST -d "{\"body\": \"Hello world\"}" "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
   - $TRAVIS_BUILD_DIR/script/conditional_deploy_artifact.sh
 
   # But you could use any other compiler as well instead of latexmk. Example:
