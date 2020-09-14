@@ -3,7 +3,11 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ] ; then # it is a pull request build.
 echo "This is a pull request build. Start uploading pdf build artifact..."
 pushd
 git_hash=$(git rev-parse HEAD)
-mv book.pdf "$(git rev-parse HEAD).pdf"
+cd $HOME/
+mkdir artifact-upload
+cd artifact-upload
+mv $TRAVIS_BUILD_DIR/src/book.pdf "$(git rev-parse HEAD).pdf"
+ls -la
 #git status
 #ls -la
 #cd $TRAVIS_BUILD_DIR/
