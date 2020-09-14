@@ -27,7 +27,7 @@ git push
 #cd $HOME/	
 #ls -la
 popd
-curl -H "Authorization: token ${1}" -X POST -d "{\"body\": \"[See build preview here](https://github.com/Necktschnagge/recipes/blob/artifacts/artifacts/${git_hash}.pdf)\"}" "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
+curl -H "Authorization: token ${1}" -X POST -d "{\"body\": \"[See build preview here: ${git_hash}.pdf](https://github.com/Necktschnagge/recipes/blob/artifacts/artifacts/${git_hash}.pdf)\"}" "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
 else 
 echo "This is no pull request build. Skipping artifact upload."
 fi
