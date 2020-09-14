@@ -10,8 +10,12 @@ cd $HOME/
 mkdir artifact-upload
 cd artifact-upload
 git clone "https://github.com/${2}.git" .
+git checkout artifacts
+cd artifacts
 mv $TRAVIS_BUILD_DIR/src/book.pdf "${git_hash}.pdf"
 ls -la
+git commit -m "Automatic upload of preview pdf" '${git_hash}.pdf'
+git push
 #git status
 #ls -la
 #cd $TRAVIS_BUILD_DIR/
