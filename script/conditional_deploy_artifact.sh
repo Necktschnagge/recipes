@@ -14,6 +14,7 @@ git checkout artifacts
 cd artifacts
 mv $TRAVIS_BUILD_DIR/src/book.pdf "${git_hash}.pdf"
 ls -la
+cat .git/config
 git status
 git add -f "./${git_hash}.pdf"
 git status
