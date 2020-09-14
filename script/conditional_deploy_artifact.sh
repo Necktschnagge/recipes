@@ -14,7 +14,7 @@ git checkout artifacts
 cd artifacts
 mv $TRAVIS_BUILD_DIR/src/book.pdf "${git_hash}.pdf"
 ls -la
-git commit -m "Automatic upload of preview pdf" "${git_hash}.pdf"
+git commit -m "Automatic upload of preview pdf" "./${git_hash}.pdf"
 git push
 #git status
 #ls -la
