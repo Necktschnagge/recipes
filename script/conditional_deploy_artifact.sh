@@ -18,13 +18,11 @@ git status
 git commit -m "Automatic upload of preview pdf"
 git status
 git push https://${TRAVIS_USERNAME}:${TRAVIS_PASSWORD}@github.com/Necktschnagge/recipes HEAD
-#git status
-#ls -la
-#cd $TRAVIS_BUILD_DIR/
-#ls -la
-#cd $HOME/	
-#ls -la
 popd
+curl -H "Authorization: token ${GH_TRAVIS_TOKEN}" \
+-X GET -d "{\"body\": \"[See build preview here: ${git_hash}.pdf](https://github.com/Necktschnagge/recipes/blob/artifacts/art"}" \
+"https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/labels"
+
 curl -H "Authorization: token ${GH_TRAVIS_TOKEN}" -X POST -d "{\"body\": \"[See build preview here: ${git_hash}.pdf](https://github.com/Necktschnagge/recipes/blob/artifacts/artifacts/${git_hash}.pdf)\"}" "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
 else 
 echo "This is no pull request build. Skipping artifact upload."
