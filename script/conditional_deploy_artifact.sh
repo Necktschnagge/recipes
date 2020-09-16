@@ -20,7 +20,7 @@ git add -f "./${git_hash}.pdf"
 git status
 git commit -m "Automatic upload of preview pdf"
 git status
-git push
+git push https://${TRAVIS_USERNAME}:${TRAVIS_PASSWORD}@github.com/Necktschnagge/recipes HEAD
 #git status
 #ls -la
 #cd $TRAVIS_BUILD_DIR/
