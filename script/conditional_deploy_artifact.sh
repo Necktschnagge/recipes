@@ -4,7 +4,7 @@ echo "This is a pull request build: ...repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS
 echo "Check labels of pull request ${TRAVIS_PULL_REQUEST}"
 labels=$(curl -H "Authorization: token ${GH_TRAVIS_TOKEN}" -X GET "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/labels")
 echo $labels
-[[ $labels =~ ^.*2352840377.*$ ]] && echo "Found ID (2352840377) of label >disable-preview<. Abort preview deployment" && exit 0
+[[ $labels =~ ^.*2352840377.*$ ]] && echo "Found ID (2352840377) of label >disable-preview<. Abort preview deployment." && exit 0
 echo "Start uploading pdf build artifact..."
 pushd .
 git_hash=$(git rev-parse HEAD)
@@ -24,11 +24,11 @@ git status
 git push https://${TRAVIS_USERNAME}:${TRAVIS_PASSWORD}@github.com/Necktschnagge/recipes HEAD
 echo "Uploading pdf build artifact... DONE"
 popd
-#if [[ $labels =~ ^.*2352896968.*$ ]] ; then
-#echo "Found ID (2352896968) of label >disable-preview<. Skip posting a comment to the pull request"
-#exit 0
-#fi
-echo "Posting comment into pull request"
+if [[ $labels =~ ^.*2352896968.*$ ]] ; then
+echo "Found ID (2352896968) of label >disable-preview<. Skip posting a comment to the pull request."
+exit 0
+fi
+echo "Posting comment into pull request..."
 curl -H "Authorization: token ${GH_TRAVIS_TOKEN}" -X POST -d "{\"body\": \"[See build preview here: ${git_hash}.pdf](https://github.com/Necktschnagge/recipes/blob/artifacts/artifacts/${git_hash}.pdf)\"}" "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
 else 
 echo "This is no pull request build. Skipping artifact upload."
