@@ -7,6 +7,7 @@ echo $labels
 [[ $labels =~ ^.*2352840377.*$ ]] && echo "Found ID (2352840377) of label >disable-preview<. Abort preview deployment." && exit 0
 echo "Start uploading pdf build artifact..."
 pushd .
+git log
 git_hash=$(git rev-parse HEAD)
 cd $HOME/
 mkdir artifact-upload
