@@ -7,7 +7,7 @@ echo $labels
 [[ $labels =~ ^.*2352840377.*$ ]] && echo "Found ID (2352840377) of label >disable-preview<. Abort preview deployment." && exit 0
 echo "Start uploading pdf build artifact..."
 pushd .
-git_hash=$(git rev-parse HEAD~1) # travis merges the current commit into something different. Therefore on CI there is always one commit more. -> use ~1
+git_hash=$(git rev-parse HEAD^2) # travis merges the current commit into something different. Therefore on CI there is always one commit more. -> use ^2 for merge ancestor (see https://medium.com/@gabicle/git-ancestry-references-explained-bd3a84a0b821)
 cd $HOME/
 mkdir artifact-upload
 cd artifact-upload
