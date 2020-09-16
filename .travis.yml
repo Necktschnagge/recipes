@@ -10,7 +10,12 @@ dist: bionic
 # - mkdir $HOME/.fonts
 # - cp -a $TRAVIS_BUILD_DIR/src/fonts/. $HOME/.fonts/
 # - fc-cache -f -v
-     
+
+branches:
+  except:
+  - artifacts
+  - gh-pages
+
 install:
   - source ./texlive/texlive_install.sh
 
@@ -30,10 +35,10 @@ script:
   - pdflatex -synctex=1 -interaction=nonstopmode book.tex > custom_log.log
   - cat custom_log.log
   - cat custom_log.log | grep -E 'at\s*line(s|)\s*[0-9]+' > custom_errors.log || true
-  - $TRAVIS_BUILD_DIR/script/check_empty.sh
+  - $TRAVIS_BUILD_DIR/script/check_emptiness_of_custom_errors_log.sh # fails on any warning in latex.
   - cat custom_errors.log
-  - mv book.pdf $TRAVIS_BUILD_DIR/build/
-
+  - cp book.pdf $TRAVIS_BUILD_DIR/build/
+  - $TRAVIS_BUILD_DIR/script/conditional_deploy_artifact.sh
 
   # But you could use any other compiler as well instead of latexmk. Example:
 #  - pdflatex main.tex
