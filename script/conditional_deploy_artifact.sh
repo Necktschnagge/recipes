@@ -7,8 +7,7 @@ echo $labels
 [[ $labels =~ ^.*2352840377.*$ ]] && echo "Found ID (2352840377) of label >disable-preview<. Abort preview deployment." && exit 0
 echo "Start uploading pdf build artifact..."
 pushd .
-git log
-git_hash=$(git rev-parse HEAD)
+git_hash=$(git rev-parse HEAD~1) # travis merges the current commit into something different. Therefore on CI there is always one commit more. -> use ~1
 cd $HOME/
 mkdir artifact-upload
 cd artifact-upload
