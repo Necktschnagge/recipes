@@ -1,6 +1,10 @@
 #!/bin/bash
 if [ "$TRAVIS_PULL_REQUEST" != "false" ] ; then # it is a pull request build.
-echo "This is a pull request build. Start uploading pdf build artifact..."
+echo "This is a pull request build: ...repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}"
+echo "Check labels of pull request ${TRAVIS_PULL_REQUEST}"
+labels=$(curl -H "Authorization: token ${GH_TRAVIS_TOKEN}" -X GET "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/labels")
+[[ $labels =~ ^.*2352840377.*$ ]] && echo "match with regex found!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo "Start uploading pdf build artifact..."
 pushd .
 git_hash=$(git rev-parse HEAD)
 cd $HOME/
@@ -19,8 +23,6 @@ git commit -m "Automatic upload of preview pdf"
 git status
 git push https://${TRAVIS_USERNAME}:${TRAVIS_PASSWORD}@github.com/Necktschnagge/recipes HEAD
 popd
-curl -H "Authorization: token ${GH_TRAVIS_TOKEN}" -X GET "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/labels"
-
 curl -H "Authorization: token ${GH_TRAVIS_TOKEN}" -X POST -d "{\"body\": \"[See build preview here: ${git_hash}.pdf](https://github.com/Necktschnagge/recipes/blob/artifacts/artifacts/${git_hash}.pdf)\"}" "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
 else 
 echo "This is no pull request build. Skipping artifact upload."
