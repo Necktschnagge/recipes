@@ -19,8 +19,8 @@ git status
 echo ">>>>> git add -f ./${git_hash}.pdf"
 git add -f "./${git_hash}.pdf"
 echo ">>>>> git commit -m \"Automatic upload of preview pdf\""
-git merge origin/master
 git commit -m "Automatic upload of preview pdf"
+git merge origin/master
 git status
 git push https://${TRAVIS_USERNAME}:${TRAVIS_PASSWORD}@github.com/Necktschnagge/recipes HEAD
 echo "Uploading pdf build artifact... DONE"
