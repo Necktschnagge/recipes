@@ -20,8 +20,11 @@ echo ">>>>> git add -f ./${git_hash}.pdf"
 git add -f "./${git_hash}.pdf"
 echo ">>>>> git commit -m \"Automatic upload of preview pdf\""
 git commit -m "Automatic upload of preview pdf"
+echo ">>>>> git merge origin/master"
 git merge origin/master
+echo ">>>>> git status"
 git status
+echo ">>>>> git push"
 git push https://${TRAVIS_USERNAME}:${TRAVIS_PASSWORD}@github.com/Necktschnagge/recipes HEAD
 echo "Uploading pdf build artifact... DONE"
 popd
