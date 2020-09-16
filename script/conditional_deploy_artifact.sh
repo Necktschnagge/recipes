@@ -21,7 +21,7 @@ git status
 echo ">>>>> git add -f ./${git_hash}.pdf"
 git add -f "./${git_hash}.pdf"
 echo ">>>>> git commit -m \"Automatic upload of preview pdf\""
-git commit -m "[skip travis] Automatic upload of preview pdf"
+git commit -m "Automatic upload of preview pdf"
 echo ">>>>> git status"
 git status
 echo ">>>>> git push"
