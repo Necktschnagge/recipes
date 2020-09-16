@@ -13,15 +13,15 @@ mkdir artifact-upload
 cd artifact-upload
 git clone "https://github.com/${TRAVIS_REPO_SLUG}.git" .
 git checkout artifacts
+echo ">>>>> git merge origin/master"
+git merge origin/master
 cd artifacts
 mv $TRAVIS_BUILD_DIR/src/book.pdf "${git_hash}.pdf"
 git status
 echo ">>>>> git add -f ./${git_hash}.pdf"
 git add -f "./${git_hash}.pdf"
 echo ">>>>> git commit -m \"Automatic upload of preview pdf\""
-git commit -m "Automatic upload of preview pdf"
-echo ">>>>> git merge origin/master"
-git merge origin/master
+git commit -m "[skip travis] Automatic upload of preview pdf"
 echo ">>>>> git status"
 git status
 echo ">>>>> git push"
