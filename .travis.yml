@@ -59,7 +59,7 @@ script:
 deploy:
     strategy: git
     provider: pages
-    skip_cleanup: true
+    cleanup: false
     token: $GH_TRAVIS_TOKEN
     keep_history: true
     local_dir: build
