@@ -1,5 +1,7 @@
 language: generic
 
+os: linux
+
 dist: bionic
 
 ## Uncomment the following lines if you require extra dependencies
@@ -55,9 +57,10 @@ script:
 #  - tlmgr list --only-installed | grep -oP 'i \K.+?(?=:)'
 
 deploy:
+    strategy: git
     provider: pages
     skip_cleanup: true
-    token: $GH_REPO_TOKEN
+    token: $GH_TRAVIS_TOKEN
     keep_history: true
     local_dir: build
     target_branch: gh-pages
