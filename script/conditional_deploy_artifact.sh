@@ -14,18 +14,28 @@ cd artifact-upload
 git clone "https://github.com/${TRAVIS_REPO_SLUG}.git" .
 git checkout artifacts
 echo ">>>>> git merge origin/master"
-git merge origin/master
+git merge origin/master # this is possible concurrent to other commits
 cd artifacts
-mv $TRAVIS_BUILD_DIR/src/book.pdf "${git_hash}.pdf"
+mv $TRAVIS_BUILD_DIR/src/book.pdf "${git_hash}.pdf" # if the file is already present, mv overwrites the old one.
 git status
 echo ">>>>> git add -f ./${git_hash}.pdf"
 git add -f "./${git_hash}.pdf"
 echo ">>>>> git commit -m \"Automatic upload of preview pdf\""
-git commit -m "Automatic upload of preview pdf"
+git commit -m "Automatic upload of preview pdf" # this is possible concurrent to other commits
 echo ">>>>> git status"
 git status
-echo ">>>>> git push"
+echo ">>>>> git push" #this may fail after concurrent commits:
 git push https://${TRAVIS_USERNAME}:${TRAVIS_PASSWORD}@github.com/Necktschnagge/recipes HEAD
+---- here check if push not successful.
+"{
+	git branch my-local-artifacts #new pointer to our own stuff.
+	git fetch
+	git merge origin/artifacts # is the fetch before unnecessary?
+	// check for merge conflict.
+	no conflict -> try push again. countdown a tries-left counter
+	if merge conflict -> 
+		
+}"
 echo "Uploading pdf build artifact... DONE"
 popd
 if [[ $labels =~ ^.*2352896968.*$ ]] ; then
