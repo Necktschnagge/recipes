@@ -19,7 +19,7 @@ branches:
   - gh-pages
 
 install:
-  - source ./texlive/texlive_install.sh
+  - source ./script/texlive/texlive_install.sh
 
 cache:
   directories:
