@@ -19,6 +19,7 @@ branches:
   - gh-pages
 
 install:
+  - cd $TRAVIS_BUILD_DIR/
   - source ./script/texlive/texlive_install.sh
 
 cache:
