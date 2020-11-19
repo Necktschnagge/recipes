@@ -1,7 +1,5 @@
 language: generic
 
-os: linux
-
 dist: focal
 
 ## Uncomment the following lines if you require extra dependencies
