@@ -17,7 +17,7 @@ while true; do
 	git checkout artifacts
 	echo ">>>>> git merge origin/master"
 	git merge origin/master || exit 5 # this is possibly concurrent to another job creating the same merge commit.
-	mv $TRAVIS_BUILD_DIR/src/book.pdf "$./artifacts/{git_hash}.pdf" # if the file is already present, mv overwrites the old one.
+	mv $TRAVIS_BUILD_DIR/src/book.pdf "./artifacts/${git_hash}.pdf" # if the file is already present, mv overwrites the old one.
 	git status
 	echo ">>>>> git add -f ./artifacts/${git_hash}.pdf"
 	git add -f "./artifacts/${git_hash}.pdf"
