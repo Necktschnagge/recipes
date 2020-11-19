@@ -1,9 +1,11 @@
-# Effiziente Berechnung von Varianzen in Markow-Ketten
+# Rezepte
 
-[![Build Status](https://travis-ci.com/Necktschnagge/efficient-variance-calulation-in-markov-chains.svg?branch=master)](https://travis-ci.com/Necktschnagge/efficient-variance-calulation-in-markov-chains)
+[![Build Status](https://travis-ci.com/Necktschnagge/recipes.svg?branch=master)](https://travis-ci.com/Necktschnagge/recipes)
 
 Find current version here:
 
-* Direct Download: https://necktschnagge.github.io/efficient-variance-calulation-in-markov-chains/script.pdf
+* Direct Download: https://necktschnagge.github.io/recipes/book.pdf
 
-* https://github.com/Necktschnagge/efficient-variance-calulation-in-markov-chains/blob/gh-pages/script.pdf
+* View PDF file in browser: https://github.com/Necktschnagge/recipes/blob/gh-pages/book.pdf
+
+* See GitHub pages: https://necktschnagge.github.io/recipes/
