@@ -1,6 +1,6 @@
 language: generic
 
-dist: bionic
+dist: focal
 
 ## Uncomment the following lines if you require extra dependencies
 #before_install:
@@ -17,7 +17,8 @@ branches:
   - gh-pages
 
 install:
-  - source ./texlive/texlive_install.sh
+  - cd $TRAVIS_BUILD_DIR/
+  - source ./script/texlive/texlive_install.sh
 
 cache:
   directories:
@@ -55,9 +56,10 @@ script:
 #  - tlmgr list --only-installed | grep -oP 'i \K.+?(?=:)'
 
 deploy:
+    strategy: git
     provider: pages
     skip_cleanup: true
-    token: $GH_REPO_TOKEN
+    token: $GH_TRAVIS_TOKEN
     keep_history: true
     local_dir: build
     target_branch: gh-pages
