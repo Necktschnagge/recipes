@@ -1,7 +1,5 @@
 language: generic
 
-os: linux
-
 dist: focal
 
 ## Uncomment the following lines if you require extra dependencies
@@ -12,15 +10,13 @@ dist: focal
 # - mkdir $HOME/.fonts
 # - cp -a $TRAVIS_BUILD_DIR/src/fonts/. $HOME/.fonts/
 # - fc-cache -f -v
-
-branches:
-  except:
-  - artifacts
-  - gh-pages
-
+  
 install:
   - cd $TRAVIS_BUILD_DIR/
-  - source ./script/texlive/texlive_install.sh
+  - source ./texlive/texlive_install.sh
+  - sudo apt-get update
+  - sudo apt-get install biber gnuplot -y
+  - echo 'Check biber version...' && biber --version
 
 cache:
   directories:
@@ -31,17 +27,18 @@ cache:
 before_script:
   - cd $TRAVIS_BUILD_DIR/src/
 script:
-  # Texliveonfly will download packages automatically
-  - texliveonfly book.tex
+  - texliveonfly script.tex || true # Texliveonfly will download packages automatically #ignore errors here because tex will be recompiled
   # You can use latexmk to automatically handle bibtex and references (recommended)
-  #- latexmk -pdf book.tex
-  - pdflatex -synctex=1 -interaction=nonstopmode book.tex > custom_log.log
+  #- latexmk -pdf script.tex
+  - pdflatex -shell-escape -synctex=1 -interaction=nonstopmode script.tex # as preparation in order to run biber.
+  - biber script
+  - pdflatex -shell-escape -synctex=1 -interaction=nonstopmode script.tex # rerun for broken references.
+  - pdflatex -shell-escape -synctex=1 -interaction=nonstopmode script.tex > custom_log.log
   - cat custom_log.log
   - cat custom_log.log | grep -E 'at\s*line(s|)\s*[0-9]+' > custom_errors.log || true
-  - $TRAVIS_BUILD_DIR/script/check_emptiness_of_custom_errors_log.sh # fails on any warning in latex.
+  - $TRAVIS_BUILD_DIR/script/check_empty.sh
   - cat custom_errors.log
-  - cp book.pdf $TRAVIS_BUILD_DIR/build/
-  - $TRAVIS_BUILD_DIR/script/conditional_deploy_artifact.sh
+  - mv script.pdf $TRAVIS_BUILD_DIR/build/
 
   # But you could use any other compiler as well instead of latexmk. Example:
 #  - pdflatex main.tex
@@ -58,10 +55,9 @@ script:
 #  - tlmgr list --only-installed | grep -oP 'i \K.+?(?=:)'
 
 deploy:
-    strategy: git
     provider: pages
     skip_cleanup: true
-    token: $GH_TRAVIS_TOKEN
+    token: $GH_REPO_TOKEN
     keep_history: true
     local_dir: build
     target_branch: gh-pages

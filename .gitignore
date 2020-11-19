@@ -117,6 +117,8 @@ acs-*.bib
 
 # gnuplottex
 *-gnuplottex-*
+*.gnuplot
+*.table
 
 # gregoriotex
 *.gaux
