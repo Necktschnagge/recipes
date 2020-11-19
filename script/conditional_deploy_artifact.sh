@@ -14,7 +14,7 @@ cd artifact-upload
 git clone "https://github.com/${TRAVIS_REPO_SLUG}.git" .
 LEFT_TRIES=10
 while true; do
-	git checkout artifacts
+	(git fetch && git checkout artifacts) || exit 4
 	echo ">>>>> git merge origin/master"
 	git merge origin/master || exit 5 # this is possibly concurrent to another job creating the same merge commit.
 	mv $TRAVIS_BUILD_DIR/src/book.pdf "./artifacts/${git_hash}.pdf" # if the file is already present, mv overwrites the old one.
