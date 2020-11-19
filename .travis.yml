@@ -2,7 +2,7 @@ language: generic
 
 os: linux
 
-dist: bionic
+dist: focal
 
 ## Uncomment the following lines if you require extra dependencies
 #before_install:
