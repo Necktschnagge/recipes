@@ -1,8 +1,6 @@
 language: generic
 
-os: linux
-
-dist: bionic
+dist: focal
 
 ## Uncomment the following lines if you require extra dependencies
 #before_install:
@@ -19,7 +17,8 @@ branches:
   - gh-pages
 
 install:
-  - source ./texlive/texlive_install.sh
+  - cd $TRAVIS_BUILD_DIR/
+  - source ./script/texlive/texlive_install.sh
 
 cache:
   directories:
