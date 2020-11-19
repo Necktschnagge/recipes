@@ -12,29 +12,33 @@ cd $HOME/
 mkdir artifact-upload
 cd artifact-upload
 git clone "https://github.com/${TRAVIS_REPO_SLUG}.git" .
-git checkout artifacts
-echo ">>>>> git merge origin/master"
-git merge origin/master # this is possible concurrent to other commits
-cd artifacts
-mv $TRAVIS_BUILD_DIR/src/book.pdf "${git_hash}.pdf" # if the file is already present, mv overwrites the old one.
-git status
-echo ">>>>> git add -f ./${git_hash}.pdf"
-git add -f "./${git_hash}.pdf"
-echo ">>>>> git commit -m \"Automatic upload of preview pdf\""
-git commit -m "Automatic upload of preview pdf" # this is possible concurrent to other commits
-echo ">>>>> git status"
-git status
-echo ">>>>> git push" #this may fail after concurrent commits:
-git push https://${TRAVIS_USERNAME}:${TRAVIS_PASSWORD}@github.com/Necktschnagge/recipes HEAD
-iwantthis to be an error ---- here check if push not successful.
-"{
-	git branch my-local-artifacts #new pointer to our own stuff.
-	git fetch
-	git merge origin/artifacts # is the fetch before unnecessary?
-	// check for merge conflict.
-	no conflict -> try push again. countdown a tries-left counter
-	if merge conflict -> seems to be a pathological case. rerun? / fail build?		
-}"
+LEFT_TRIES=10
+while true; do
+	git checkout artifacts
+	echo ">>>>> git merge origin/master"
+	git merge origin/master || exit 5 # this is possibly concurrent to another job creating the same merge commit.
+	mv $TRAVIS_BUILD_DIR/src/book.pdf "$./artifacts/{git_hash}.pdf" # if the file is already present, mv overwrites the old one.
+	git status
+	echo ">>>>> git add -f ./artifacts/${git_hash}.pdf"
+	git add -f "./artifacts/${git_hash}.pdf"
+	echo ">>>>> git commit -m \"Automatic upload of preview pdf\""
+	git commit -m "Automatic upload of preview pdf" # this is possibly concurrent to another job running this script.
+	echo ">>>>> git status"
+	git status
+	echo ">>>>> git push" #this may fail after concurrent commits:
+	git push https://${TRAVIS_USERNAME}:${TRAVIS_PASSWORD}@github.com/Necktschnagge/recipes HEAD && beak
+
+	echo ">>>>> Push was not successful. Trying again"
+	git checkout master
+	git branch -D artifacts
+	sleep $(($LEFT_TRIES))s
+	let LEFT_TRIES=LEFT_TRIES-1
+	if [ $LEFT_TRIES -lt 1 ]; then
+		echo "FAILED:   Uploading pdf build artifact."
+		curl -H "Authorization: token ${GH_TRAVIS_TOKEN}" -X POST -d "{\"body\": \"ERROR: Failed to push preview artifact!\"}" "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
+		exit 1
+	fi
+done
 echo "Uploading pdf build artifact... DONE"
 popd
 if [[ $labels =~ ^.*2352896968.*$ ]] ; then
