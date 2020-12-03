@@ -12,8 +12,8 @@ cd $HOME/
 mkdir artifact-upload
 cd artifact-upload
 git clone "https://github.com/${TRAVIS_REPO_SLUG}.git" .
-#git config user.name "GitHub for Travis CI ORG"
-#git config user.email "dn49ks23@outlook.de"
+git config user.name "Travis-CI PREVIEW UPLOADER"
+git config user.email "Travis-CI-PREVIEW-UPLOADER@example.org"
 LEFT_TRIES=10
 while true; do
 	(git fetch && git checkout artifacts) || exit 4
