@@ -1,7 +1,7 @@
 # Rezepte
 ### Build status:
 
-* Travis-ci.com: [![Build Status](https://travis-ci.com/Necktschnagge/recipes.svg?branch=master)](https://travis-ci.com/Necktschnagge/recipes)
+[Note that Travis.com has been disabled]: <> (Travis-ci.com: \[!\[Build Status\]\(https://travis-ci.com/Necktschnagge/recipes.svg?branch=master\)\]\(https://travis-ci.com/Necktschnagge/recipes\))
 
 * Travis-ci.org: [![Build Status](https://travis-ci.org/Necktschnagge/recipes.svg?branch=master)](https://travis-ci.org/Necktschnagge/recipes)
 
