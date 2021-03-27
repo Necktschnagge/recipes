@@ -17,7 +17,7 @@ while true; do
 	(git fetch && git checkout artifacts) || exit 4
 	echo ">>>>> git merge origin/master"
 	git merge origin/master || exit 5 # this is possibly concurrent to another job creating the same merge commit.
-	mv $TRAVIS_BUILD_DIR/src/book.pdf "./artifacts/${git_hash}.pdf" # if the file is already present, mv overwrites the old one.
+	cp $TRAVIS_BUILD_DIR/src/book.pdf "./artifacts/${git_hash}.pdf" # if the file is already present, cp overwrites the old one.
 	git status
 	echo ">>>>> git add -f ./artifacts/${git_hash}.pdf"
 	git add -f "./artifacts/${git_hash}.pdf"
@@ -26,7 +26,7 @@ while true; do
 	echo ">>>>> git status"
 	git status
 	echo ">>>>> git push" #this may fail after concurrent commits:
-	git push https://${TRAVIS_USERNAME}:${TRAVIS_PASSWORD}@github.com/Necktschnagge/recipes HEAD && break
+	git push https://${TRAVIS_USERNAME}:${GH_TRAVIS_TOKEN}@github.com/Necktschnagge/recipes HEAD && break
 
 	echo ">>>>> Push was not successful. Trying again"
 	git checkout master
