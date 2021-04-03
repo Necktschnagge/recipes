@@ -18,7 +18,6 @@ branches:
 
 install:
   - cd $TRAVIS_BUILD_DIR/
-  - update-tlmgr-latest.sh --update
   - source ./script/texlive/texlive_install.sh
 
 cache:
