@@ -20,10 +20,10 @@ install:
   - cd $TRAVIS_BUILD_DIR/
   - source ./script/texlive/texlive_install.sh
 
-cache:
-  directories:
-    - /tmp/texlive
-    - $HOME/.texlive
+#cache:
+#  directories:
+#    - /tmp/texlive
+#    - $HOME/.texlive
 
 # Change working directory so including files will work
 before_script:
